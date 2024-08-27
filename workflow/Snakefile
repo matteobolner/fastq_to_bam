@@ -1,0 +1,8 @@
+include: "rules/common.smk"
+include: "rules/setup.smk"
+include: "rules/mapping.smk"
+
+
+rule all:
+    input:
+        expand("logs/mail_confirmations/{sample}.log", sample=samples.index)
