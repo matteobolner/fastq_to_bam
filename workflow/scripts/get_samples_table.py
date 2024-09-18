@@ -20,8 +20,7 @@ def get_fastq_pairs(base_dir):
                 if fq2 and '_1.fq' in fq1 and '_2.fq' in fq2:
                     fq1_abs = os.path.abspath(os.path.join(sample_path, fq1))
                     fq2_abs = os.path.abspath(os.path.join(sample_path, fq2))
-
-                    unit = os.path.splitext(fq1)[0].rstrip("_1.fq")
+                    unit = os.path.splitext(fq1)[0].replace("_1.fq","")
                     data.append([sample, unit, fq1_abs, fq2_abs])
 
     # Create a DataFrame for output
