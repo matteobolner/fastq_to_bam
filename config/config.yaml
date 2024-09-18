@@ -1,4 +1,4 @@
-ref_genome: "resources/ref_genome/GCF_002263795.3_ARS-UCD2.0_genomic.fna"
+ref_genome: "resources/bos_taurus/GCF_002263795.3_ARS-UCD2.0_genomic.fna"
 samples_path: "/media/ionadmin/Expansion/F24A430000739_CATxdleR/part2/soapnuke/clean"
 bam_folder: "/mnt/81363e60-ec71-4afb-a67f-842dde536163/WGS-TORI-RE/BAM"
 samples: "config/samples.tsv"
