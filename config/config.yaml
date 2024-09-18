@@ -1,4 +1,4 @@
-ref_genome: "/home/ionadmin/GENOMES/bos_taurus/GCF_002263795.3_ARS-UCD2.0_genomic.fna"
-bam_folder: "/media/ionadmin/EXT/BAM"
+ref_genome: "GENOMES/bos_taurus/GCF_002263795.3_ARS-UCD2.0_genomic.fna"
+bam_folder: "output_folder/BAM"
 samples: "config/samples.tsv"
 mail_address: "username@provider.com"
