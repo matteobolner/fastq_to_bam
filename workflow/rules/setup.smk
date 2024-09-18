@@ -1,9 +1,9 @@
 rule bwa_index_ref:
     input:
-        genome=config['ref_genome'],
+        genome=config["ref_genome"],
     output:
         idx=multiext(
-            config['ref_genome'],
+            config["ref_genome"],
             ".0123",
             ".amb",
             ".ann",

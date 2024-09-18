@@ -15,6 +15,7 @@ rule bwa_mem2_mem:
     wrapper:
         "v3.14.1/bio/bwa-mem2/mem"
 
+
 rule samtools_merge:
     input:
         get_sample_bams,
@@ -42,6 +43,7 @@ rule samtools_index:
     priority: 1
     wrapper:
         "v3.14.1/bio/samtools/index"
+
 
 rule send_mail:
     input:
