@@ -1,9 +1,9 @@
 rule bwa_mem2_mem:
     input:
         reads=get_all_fastqs_per_unit,
-        idx=rules.bwa_index_ref.output,
+        idx=rules.bwa_mem2_index.output,
     output:
-        temp(bam_folder_path("{sample}}-{unit}.bam")),
+        temp(bam_folder_path("{sample}-{unit}.bam")),
     log:
         "logs/bwa_mem2/{sample}_{unit}.log",
     params:
@@ -30,27 +30,12 @@ rule samtools_merge:
         "v5.2.1/bio/samtools/merge"
 
 
-rule samtools_index:
-    input:
-        bam_folder_path("{sample}.bam"),
-    output:
-        bam_folder_path("{sample}.bam.bai"),
-    log:
-        "logs/samtools_index/{sample}.log",
-    params:
-        extra="",  # optional params string
-    threads: 1
-    priority: 1
-    wrapper:
-        "v5.2.1/bio/samtools/index"
-
-
 rule mark_duplicates_spark:
     input:
         bam_folder_path("{sample}.bam"),
     output:
-        bam_folder_path("{sample}.rmdup.bam"),
-        bam_folder_path("{sample}.metrics.txt"),
+        bam=bam_folder_path("{sample}.rmdup.bam"),
+        metrics=bam_folder_path("{sample}.metrics.txt"),
     log:
         "logs/markduplicates/{sample}.log",
     params:
@@ -63,9 +48,26 @@ rule mark_duplicates_spark:
         # Memory needs to be at least 471859200 for Spark, so 589824000 when
         # accounting for default JVM overhead of 20%. We round round to 650M.
         mem_mb=lambda wildcards, input: max([input.size_mb * 0.25, 650]),
-    threads: 8
+    threads: 10
     wrapper:
         "v5.2.1/bio/gatk/markduplicatesspark"
+
+
+rule samtools_index:
+    input:
+        bam_folder_path("{sample}.rmdup.bam"),
+    output:
+        bam_folder_path("{sample}.rmdup.bam.bai"),
+    log:
+        "logs/samtools_index/{sample}.log",
+    params:
+        extra="",  # optional params string
+    threads: 1
+    priority: 1
+    wrapper:
+        "v5.2.1/bio/samtools/index"
+
+
 
 
 rule send_mail:

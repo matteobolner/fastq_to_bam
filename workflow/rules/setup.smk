@@ -33,6 +33,6 @@ rule bwa_mem2_index:
         mem_mb=25000,
     threads: 8
     log:
-        "logs/bwa-mem2_index/indexing.log",
+        "logs/bwa-mem2_index/{genome}.log",
     wrapper:
         "v5.2.1/bio/bwa-mem2/index"

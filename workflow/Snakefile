@@ -5,4 +5,4 @@ include: "rules/mapping.smk"
 
 rule all:
     input:
-        expand(bam_folder_path("{sample}.rmdup.bam"), sample=samples.index),
+        expand(bam_folder_path("{sample}.rmdup.bam.bai"), sample=samples.index[0]),
