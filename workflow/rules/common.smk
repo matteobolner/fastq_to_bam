@@ -1,10 +1,16 @@
 import pandas as pd
+import os
 
 
 configfile: "config/config.yaml"
 
 
 samples = pd.read_table(config["samples"]).set_index("sample", drop=False)
+
+
+# bam_folder=config['bam_folder']
+def bam_folder_path(path):
+    return os.path.join(config["bam_folder"], path)
 
 
 def get_all_fastqs_per_unit(wildcards):
@@ -14,10 +20,10 @@ def get_all_fastqs_per_unit(wildcards):
     return [unit["fq1"], unit["fq2"]]
 
 
-def get_sample_bams(wildcards):
+def get_all_sample_bams(wildcards):
     """Get all aligned reads of given sample."""
     return expand(
-        f"{config['bam_folder']}/{{sample}}-{{unit}}.bam",
+        bam_folder_path("{sample}-{unit}.bam"),
         sample=wildcards.sample,
         unit=samples.loc[wildcards.sample].unit,
     )
