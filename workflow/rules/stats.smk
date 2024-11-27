@@ -8,6 +8,7 @@ rule samtools_stats_raw:
     wrapper:
         "v5.2.1/bio/samtools/flagstat"
 
+
 rule samtools_stats_raw:
     input:
         bam=bam_folder_path("{sample}.rmdup.bam"),
@@ -18,9 +19,13 @@ rule samtools_stats_raw:
     wrapper:
         "v5.2.1/bio/samtools/flagstat"
 
+
 rule multiqc_samtools_flagstat:
     input:
-        expand("stats/samtools_flagstat/{raw_or_rmdup}/{sample}.flagstat"), sample=samples.index),
+        expand(
+            "stats/samtools_flagstat/{raw_or_rmdup}/{sample}.flagstat",
+            sample=samples.index,
+        ),
     output:
         "reports/multiqc/samtools_flagstat/{raw_or_rmdup}/report.html",
         directory("reports/multiqc/samtools_flagstat/{raw_or_rmdup}/report_data"),
@@ -44,6 +49,7 @@ rule multiqc_markduplicates:
         "logs/multiqc/markduplicates.log",
     wrapper:
         "v5.2.1/bio/multiqc"
+
 
 rule mosdepth:
     input:
