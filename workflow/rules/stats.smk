@@ -1,21 +1,10 @@
-rule samtools_stats_raw:
+rule samtools_stats:
     input:
-        bam=bam_folder_path("{sample}.bam"),
+        bam=bam_folder_path("{sample}{raw_or_rmdup}.bam"),
     output:
-        "stats/samtools_flagstat/raw/{sample}.flagstat",
+        "stats/samtools_flagstat/{sample}{raw_or_rmdup}.flagstat",
     log:
-        "logs/samtools_flagstat/raw/{sample}.log",
-    wrapper:
-        "v5.2.1/bio/samtools/flagstat"
-
-
-rule samtools_stats_raw:
-    input:
-        bam=bam_folder_path("{sample}.rmdup.bam"),
-    output:
-        "stats/samtools_flagstat/rmdup/{sample}.flagstat",
-    log:
-        "logs/samtools_flagstat/rmdup/{sample}.log",
+        "logs/samtools_flagstat/{sample}{raw_or_rmdup}.log",
     wrapper:
         "v5.2.1/bio/samtools/flagstat"
 
@@ -23,7 +12,7 @@ rule samtools_stats_raw:
 rule multiqc_samtools_flagstat:
     input:
         expand(
-            "stats/samtools_flagstat/{raw_or_rmdup}/{sample}.flagstat",
+            "stats/samtools_flagstat/{sample}{{raw_or_rmdup}}.flagstat",
             sample=samples.index,
         ),
     output:
