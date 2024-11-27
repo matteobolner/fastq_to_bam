@@ -6,7 +6,7 @@ include: "rules/stats.smk"
 
 rule all:
     input:
-        expand("reports/multiqc/samtools/flagstat{raw_or_rmdup}/report.html", raw_or_rmdup=['','rmdup'])
+        expand("reports/multiqc/samtools/flagstat{raw_or_rmdup}/report.html", raw_or_rmdup=['','.rmdup'])
         #"reports/multiqc/mosdepth/report.html",
         #"reports/multiqc/markduplicates/report.html"
         #expand(bam_folder_path("{sample}.rmdup.bam.bai"), sample=samples.index[0]),
