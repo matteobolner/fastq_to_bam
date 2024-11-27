@@ -16,12 +16,12 @@ rule multiqc_samtools_flagstat:
             sample=samples.index,
         ),
     output:
-        "reports/multiqc/samtools_flagstat/{raw_or_rmdup}/report.html",
-        directory("reports/multiqc/samtools_flagstat/{raw_or_rmdup}/report_data"),
+        "reports/multiqc/samtools/flagstat{raw_or_rmdup}/report.html",
+        directory("reports/multiqc/samtools/flagstat{raw_or_rmdup}/report_data"),
     params:
         extra="--verbose",
     log:
-        "logs/multiqc/markduplicates.log",
+        "logs/multiqc/markduplicates{raw_or_rmdup}.log",
     wrapper:
         "v5.2.1/bio/multiqc"
 
