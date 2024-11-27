@@ -5,6 +5,8 @@ rule samtools_flagstat:
         "stats/samtools/flagstat/{sample}.flagstat",
     log:
         "logs/samtools/flagstat/{sample}.log",
+    threads:
+        10
     wrapper:
         "v5.2.1/bio/samtools/flagstat"
 

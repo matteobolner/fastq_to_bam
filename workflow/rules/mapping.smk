@@ -20,7 +20,7 @@ rule samtools_merge:
     input:
         get_all_sample_bams,
     output:
-        bam_folder_path("{sample}.bam"),
+        temp(bam_folder_path("{sample}.bam")),
     log:
         "logs/samtools_merge/{sample}.log",
     params:
