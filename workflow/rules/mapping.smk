@@ -39,7 +39,7 @@ rule mark_duplicates_spark:
     log:
         "logs/markduplicates/{sample}.log",
     params:
-        extra="--remove-sequencing-duplicates",  # optional
+        extra="--remove-all-duplicates",  # optional
         java_opts="",  # optional
         #spark_runner="",  # optional, local by default
         #spark_v5.2.1="",  # optional
