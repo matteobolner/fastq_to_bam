@@ -6,5 +6,6 @@ include: "rules/stats.smk"
 
 rule all:
     input:
-        "reports/multiqc/mosdepth/report.html"
+        "reports/multiqc/mosdepth/report.html",
+        "reports/multiqc/markduplicates/report.html"
         #expand(bam_folder_path("{sample}.rmdup.bam.bai"), sample=samples.index[0]),

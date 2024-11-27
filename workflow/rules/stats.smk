@@ -1,3 +1,16 @@
+rule multiqc_markduplicates:
+    input:
+        expand(bam_folder_path("{sample}.metrics.txt"), sample=samples.index),
+    output:
+        "reports/multiqc/markduplicates/report.html",
+        directory("reports/multiqc/markduplicates/report_data"),
+    params:
+        extra="--verbose",
+    log:
+        "logs/multiqc/markduplicates.log",
+    wrapper:
+        "v5.2.1/bio/multiqc"
+
 rule mosdepth:
     input:
         bam=bam_folder_path("{sample}.rmdup.bam"),
