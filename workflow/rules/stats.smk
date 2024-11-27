@@ -1,10 +1,10 @@
-rule samtools_stats:
+rule samtools_flagstat:
     input:
-        bam=bam_folder_path("{sample}{raw_or_rmdup}.bam"),
+        bam=bam_folder_path("{sample}.rmdup.bam"),
     output:
-        "stats/samtools/flagstat/{sample}{raw_or_rmdup}.flagstat",
+        "stats/samtools/flagstat/{sample}.flagstat",
     log:
-        "logs/samtools/flagstat/{sample}{raw_or_rmdup}.log",
+        "logs/samtools/flagstat/{sample}.log",
     wrapper:
         "v5.2.1/bio/samtools/flagstat"
 
@@ -12,16 +12,16 @@ rule samtools_stats:
 rule multiqc_samtools_flagstat:
     input:
         expand(
-            "stats/samtools/flagstat/{sample}{{raw_or_rmdup}}.flagstat",
+            "stats/samtools/flagstat/{sample}.flagstat",
             sample=samples.index,
         ),
     output:
-        "reports/multiqc/samtools/flagstat{raw_or_rmdup}/report.html",
-        directory("reports/multiqc/samtools/flagstat{raw_or_rmdup}/report_data"),
+        "reports/multiqc/samtools/flagstat/report.html",
+        directory("reports/multiqc/samtools/flagstat/report_data"),
     params:
         extra="--verbose",
     log:
-        "logs/multiqc/markduplicates{raw_or_rmdup}.log",
+        "logs/multiqc/samtools_flagstat.log",
     wrapper:
         "v5.2.1/bio/multiqc"
 
