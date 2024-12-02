@@ -5,8 +5,7 @@ rule samtools_flagstat:
         "stats/samtools/flagstat/{sample}.flagstat",
     log:
         "logs/samtools/flagstat/{sample}.log",
-    threads:
-        10
+    threads: 10
     wrapper:
         "v5.2.1/bio/samtools/flagstat"
 
@@ -70,5 +69,21 @@ rule multiqc_mosdepth:
         extra="--verbose",
     log:
         "logs/multiqc/mosdepth.log",
+    wrapper:
+        "v5.2.1/bio/multiqc"
+
+
+rule multiqc_rmdup_mosdepth_flagstats:
+    input:
+        bam_folder_path("{sample}.metrics.txt"),
+        expand("stats/samtools/flagstat/{sample}.flagstat", sample=samples.index),
+        expand("stats/mosdepth/{sample}.mosdepth.global.dist.txt", sample=samples.index),
+    output:
+        "reports/multiqc/rmdup_mosdepth_flagstats/report.html",
+        directory("reports/multiqc/rmdup_mosdepth_flagstats/report_data"),
+    params:
+        extra="--verbose",
+    log:
+        "logs/multiqc/rmdup_mosdepth_flagstats.log",
     wrapper:
         "v5.2.1/bio/multiqc"
