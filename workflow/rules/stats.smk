@@ -75,7 +75,7 @@ rule multiqc_mosdepth:
 
 rule multiqc_rmdup_mosdepth_flagstats:
     input:
-        bam_folder_path("{sample}.metrics.txt"),
+        expand(bam_folder_path("{sample}.metrics.txt"), sample=samples.index),
         expand("stats/samtools/flagstat/{sample}.flagstat", sample=samples.index),
         expand("stats/mosdepth/{sample}.mosdepth.global.dist.txt", sample=samples.index),
     output:
